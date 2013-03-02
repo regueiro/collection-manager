@@ -47,27 +47,23 @@ public class MainWindow implements BeanFactoryAware {
 	private ArtistDialog artistDialog;
 	private BeanFactory factory;
 
-	/**
-	 * Launch the application.
-	 */
+
 	public void run() {
 		frame.setVisible(true);
 	}
 
-	/**
-	 * Create the application.
-	 */
+
 	public MainWindow() {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 			System.out.println("Error setting native LAF: " + e);
 		}
-
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @wbp.parser.entryPoint
 	 */
 	@PostConstruct
 	private void initialize() {
