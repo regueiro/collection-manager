@@ -1,10 +1,6 @@
 package es.regueiro.collectionManager.ui.controller;
 
 import java.net.URL;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,13 +15,6 @@ public class MainWindowController {
 	private ArtistListModel artistListModel;
 	@Autowired
 	private ArtistController artistController;
-	private Validator validator;
-
-	public MainWindowController() {
-		
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		validator = factory.getValidator();
-	}
 	
 	public void populate() {
 		String[] values = new String[] { "Fortitude", "Adoration of the Magi",

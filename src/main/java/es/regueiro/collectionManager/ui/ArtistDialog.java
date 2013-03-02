@@ -19,10 +19,6 @@ import org.springframework.stereotype.Component;
 import es.regueiro.collectionManager.ui.controller.MainWindowController;
 import net.miginfocom.swing.MigLayout;
 import java.awt.Toolkit;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -30,6 +26,7 @@ import java.awt.event.ActionEvent;
 @Lazy
 public class ArtistDialog extends JDialog {
 
+	private static final long serialVersionUID = -4122222053333149855L;
 	private final JPanel contentPanel = new JPanel();
 	private JXLabel lblMusicbrainzId;
 	private JXLabel lblArtistName;
@@ -57,7 +54,7 @@ public class ArtistDialog extends JDialog {
 		this.setVisible(true);
 		return returnValue;
 	}
-	private void validateInput() {
+//	private void validateInput() {
 //		String tempName = txtfldName.getText();
 //		String tempSortName = txtfldSortName.getText();
 //		String tempMBID = txtfldId.getText();
@@ -112,7 +109,7 @@ public class ArtistDialog extends JDialog {
 //
 //			this.discogsURL = tempDiscogsURL;
 //		}
-	}
+//	}
 	
 	private void setValues() {
 

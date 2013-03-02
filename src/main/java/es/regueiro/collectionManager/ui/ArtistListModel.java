@@ -1,6 +1,5 @@
 package es.regueiro.collectionManager.ui;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractListModel;
@@ -14,6 +13,7 @@ import es.regueiro.collectionManager.model.Artist;
 @Component
 public class ArtistListModel extends AbstractListModel<Artist> {
 
+	private static final long serialVersionUID = -1740023598708389850L;
 	@Autowired
 	private ArtistController artistController;
 	
