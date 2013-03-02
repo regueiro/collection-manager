@@ -16,3 +16,10 @@ collection-manager
 
 
 A full package with dependencies will be available in the future.
+
+
+# License
+
+Licensed under the terms of the GNU General Public License version 3.
+
+For more info consult COPYING 
