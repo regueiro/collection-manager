@@ -72,27 +72,75 @@
 			<version>4.2</version>
 		</dependency>
 		<dependency>
-			<groupId>musicbrainzws2-java</groupId>
-			<artifactId>musicbrainzws2-java</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${basedir}\lib\musicbrainzws2-java.jar</systemPath>
+			<groupId>org.musicbrainz</groupId>
+			<artifactId>musicbrainzws2</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>es.regueiro</groupId>
+			<artifactId>icons</artifactId>
+			<version>0.1</version>
 		</dependency>
 	</dependencies>
 	<build>
-    <plugins>
-      <plugin>
-         <artifactId>maven-jar-plugin</artifactId>
-         <configuration>
-           <archive>
-             <manifest>
-               <addClasspath>true</addClasspath>
-               <classpathPrefix>lib/</classpathPrefix>
-               <mainClass>es.regueiro.collectionManager.Main</mainClass>
-             </manifest>
-           </archive>
-         </configuration>
-      </plugin>
-    </plugins>
-  </build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>es.regueiro.collectionManager.Main</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>0.7</version>
+				<configuration>
+					<message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
+					<noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
+					<outputDirectory>${project.build.directory}/regueiro-mvn-repo</outputDirectory> <!-- matches distribution management repository url above -->
+					<branch>refs/heads/master</branch>                       <!-- remote branch name -->
+					<includes>
+						<include>**/*</include>
+					</includes>
+					<repositoryName>regueiro-mvn-repo</repositoryName>      <!-- github repo name -->
+					<repositoryOwner>regueiro</repositoryOwner>    <!-- github username -->
+				</configuration>
+				<executions>
+					<!-- run site-maven-plugin's 'site' target as part of the build's normal 
+						'deploy' phase -->
+					<execution>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<phase>deploy</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+
+	<distributionManagement>
+		<repository>
+			<id>internal.repo</id>
+			<name>Temporary Staging Repository</name>
+			<url>file://${project.build.directory}/regueiro-mvn-repo</url>
+		</repository>
+	</distributionManagement>
+	<properties>
+		<github.global.server>github</github.global.server>
+	</properties>
+
+	<repositories>
+    <repository>
+      <id>regueiro-mvn-repo</id>
+      <url>https://github.com/regueiro/regueiro-mvn-repo/raw/master</url>
+    </repository>
+ </repositories>
 </project>
