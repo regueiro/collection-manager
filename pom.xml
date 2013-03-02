@@ -60,5 +60,22 @@
   		<artifactId>spring-aspects</artifactId>
   		<version>3.2.1.RELEASE</version>
   	</dependency>
+  	<dependency>
+  		<groupId>org.swinglabs.swingx</groupId>
+  		<artifactId>swingx-all</artifactId>
+  		<version>1.6.5</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.miglayout</groupId>
+  		<artifactId>miglayout-swing</artifactId>
+  		<version>4.2</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>musicbrainzws2-java</groupId>
+  		<artifactId>musicbrainzws2-java</artifactId>
+  		<version>1.0</version>
+  		<scope>system</scope>
+  		<systemPath>${basedir}\src\main\resources\musicbrainzws2-java.jar</systemPath>
+  	</dependency>
   </dependencies>
 </project>
