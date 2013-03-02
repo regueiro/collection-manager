@@ -17,26 +17,24 @@ public class Main {
 	private static ClassPathXmlApplicationContext context;
 
 	public static void main(String[] args) {
-		
-		context = new ClassPathXmlApplicationContext("collection-beans.xml");
 
-		
-		MainWindow window  = (MainWindow) context.getBean("mainWindow");
-		
- 		window.run();
-		
-//		Artist controller = new Artist();
-//		
-//		controller.search("Audio");
-//		
-//		 List<ArtistResultWs2> results;
-//		 results = controller.getFullSearchResultList();
-//		 
-//		 for (ArtistResultWs2 result:results) {
-//			System.out.println(result.getArtist().getName());
-//		 }
+		context = new ClassPathXmlApplicationContext(
+				"/es/regueiro/collectionManager/collection-beans.xml");
+
+		MainWindow window = (MainWindow) context.getBean("mainWindow");
+
+		window.run();
+
+		// Artist controller = new Artist();
+		//
+		// controller.search("Audio");
+		//
+		// List<ArtistResultWs2> results;
+		// results = controller.getFullSearchResultList();
+		//
+		// for (ArtistResultWs2 result:results) {
+		// System.out.println(result.getArtist().getName());
+		// }
 	}
-	
-	
-	
+
 }
