@@ -12,7 +12,7 @@ collection-manager
 
 **Download with maven from repository:** https://github.com/regueiro/regueiro-mvn-repo
 
-*Needs dependencies to be downloaded separately and placed in dependency directory*
+*Needs dependencies to be downloaded separately and placed in dependency directory*.
 
 
 A full package with dependencies will be available in the future.
@@ -22,4 +22,4 @@ A full package with dependencies will be available in the future.
 
 Licensed under the terms of the GNU General Public License version 3.
 
-For more info consult COPYING 
+For more detailed information consult COPYING.

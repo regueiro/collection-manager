@@ -11,6 +11,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import es.regueiro.collectionManager.model.Artist;
@@ -46,16 +47,19 @@ public class ArtistController {
 		artist.setSortName(sortName);
 		artist.setMusicBrainzID(musicBrainzID);
 		
-		String http = "http://";
-		if (!discogsURL.startsWith(http)) {
-			discogsURL = http.concat(discogsURL);					
+		if (!StringUtils.isEmpty(discogsURL)) {
+			String http = "http://";
+			if (!discogsURL.startsWith(http)) {
+				discogsURL = http.concat(discogsURL);					
+			}
+			
+			try {
+				artist.setDiscogsURL(new URL(discogsURL));
+			} catch (MalformedURLException exc) {
+				errorMessage.append("The entered discogs URL is invalid\n");
+			}
 		}
 		
-		try {
-			artist.setDiscogsURL(new URL(discogsURL));
-		} catch (MalformedURLException exc) {
-			errorMessage.append("The entered discogs URL is invalid\n");
-		}
 
 		Set<ConstraintViolation<Artist>> constraintViolations =  validator.validate(artist);
 		

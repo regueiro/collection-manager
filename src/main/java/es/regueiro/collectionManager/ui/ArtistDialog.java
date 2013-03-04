@@ -132,6 +132,13 @@ public class ArtistDialog extends JDialog {
 					getMusicBrainzID(),
 					getDiscogsURL());
 	}
+	
+	private void clear() {
+		this.txtfldDiscogsUrl.setText("");
+		this.txtfldId.setText("");
+		this.txtfldName.setText("");
+		this.txtfldSortName.setText("");
+	}
 
 	/**
 	 * @return the artistName
@@ -235,6 +242,7 @@ public class ArtistDialog extends JDialog {
 //							validateInput();
 							setValues();
 							returnValue = true;
+							clear();
 							dispose();
 						} catch (IllegalArgumentException ex) {
 							JOptionPane.showMessageDialog(

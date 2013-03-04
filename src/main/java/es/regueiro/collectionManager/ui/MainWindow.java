@@ -36,6 +36,13 @@ import org.springframework.stereotype.Component;
 
 import es.regueiro.collectionManager.ui.controller.MainWindowController;
 import javax.swing.SortOrder;
+import java.awt.FlowLayout;
+import org.jdesktop.swingx.JXTree;
+import javax.swing.JButton;
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.Insets;
 
 @Component
 public class MainWindow implements BeanFactoryAware {
@@ -43,10 +50,9 @@ public class MainWindow implements BeanFactoryAware {
 	private JFrame frame;
 	@Autowired
 	private MainWindowController controller;
-	private JXList list; 
 	private ArtistDialog artistDialog;
 	private BeanFactory factory;
-
+	private JXList list;
 
 	public void run() {
 		frame.setVisible(true);
@@ -74,128 +80,157 @@ public class MainWindow implements BeanFactoryAware {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane()
 				.setLayout(
-						new MigLayout("", "[300]10px[]10px[grow,right]",
-								"[]10px[grow]"));
-
-		JPanel panel = new JPanel();
-		frame.getContentPane().add(panel,
-				"flowx,cell 0 0 2 1,alignx left,growy");
-		panel.setLayout(new MigLayout("", "[]20px[]", "[]"));
-
-		JToolBar toolBar = new JToolBar();
-		panel.add(toolBar, "cell 0 0,alignx center,aligny top");
-		toolBar.setFloatable(false);
-
-		JXButton btnAddArtist = new JXButton();
-		btnAddArtist.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				artistDialog = (ArtistDialog) factory.getBean("artistDialog");
-				artistDialog.setLocationRelativeTo(frame);
-				if (artistDialog.showDialog()) {
-					list.setSelectedValue(artistDialog.getArtistName(), true);
-				}
-			}
-		});
-		btnAddArtist.setIcon(new ImageIcon(MainWindow.class
-				.getResource("/glyph/user.png")));
-		btnAddArtist.setText("Add Artist");
-		toolBar.add(btnAddArtist);
-
-		JXButton btnEditArtist = new JXButton();
-		btnEditArtist.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// String artistName = (String) list.getSelectedValue();
-				// Artist artist = controller.get
-				// ArtistDialog editArtistDialog = new ArtistDialog();
-				// editArtistDialog.setLocationRelativeTo(frame);
-				// if (addArtistDialog.showDialog()) {
-				// controller.addArtist(addArtistDialog.getArtistName(),
-				// addArtistDialog.getArtistSortName(),
-				// addArtistDialog.getMusicBrainzID(),
-				// addArtistDialog.getDiscogsURL());
-				// list.setSelectedValue(addArtistDialog.getArtistName(), true);
-				// }
-			}
-		});
-		btnEditArtist.setIcon(new ImageIcon(MainWindow.class
-				.getResource("/glyph/edit.png")));
-		toolBar.add(btnEditArtist);
-		btnEditArtist.setText("Edit Artist");
-
-		JXButton btnRemoveArtist = new JXButton();
-		btnRemoveArtist.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.removeArtist(list.getSelectedValue());
-			}
-		});
-		btnRemoveArtist.setIcon(new ImageIcon(MainWindow.class
-				.getResource("/glyph/remove_2.png")));
-		btnRemoveArtist.setText("Remove Artist");
-		toolBar.add(btnRemoveArtist);
-
-		JToolBar toolBar_1 = new JToolBar();
-		toolBar_1.setFloatable(false);
-		panel.add(toolBar_1, "cell 1 0,alignx center,aligny top");
-
-		JXButton btnAddRelease = new JXButton();
-		toolBar_1.add(btnAddRelease);
-		btnAddRelease.setIcon(new ImageIcon(MainWindow.class
-				.getResource("/glyph/music.png")));
-		btnAddRelease.setText("Add Release");
-
-		JXButton btnEditSelected = new JXButton();
-		toolBar_1.add(btnEditSelected);
-		btnEditSelected.setIcon(new ImageIcon(MainWindow.class
-				.getResource("/glyph/albums.png")));
-		btnEditSelected.setText("Edit Selected");
-
-		JXButton btnDeleteSelected = new JXButton();
-		toolBar_1.add(btnDeleteSelected);
-		btnDeleteSelected.setIcon(new ImageIcon(MainWindow.class
-				.getResource("/glyph/remove.png")));
-		btnDeleteSelected.setText("Delete Selected");
-
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Artists",
-				"Releases" }));
-		frame.getContentPane().add(comboBox, "flowx,cell 2 0");
-
-		JXSearchField srchfldSearchRelease = new JXSearchField();
-		srchfldSearchRelease.setHorizontalAlignment(SwingConstants.TRAILING);
-		srchfldSearchRelease.setMaximumSize(new Dimension(500, 2147483647));
-		srchfldSearchRelease.setPrompt("Search Release");
-		srchfldSearchRelease.setToolTipText("Search Release");
-		frame.getContentPane().add(srchfldSearchRelease, "cell 2 0,growx");
-
-		JScrollPane scrollPane = new JScrollPane();
-		frame.getContentPane().add(scrollPane, "cell 0 1,grow");
-
-		JXLabel lblArtists = new JXLabel();
-		lblArtists.setBorder(new EmptyBorder(5, 5, 5, 5));
-		lblArtists.setHorizontalAlignment(SwingConstants.LEFT);
-		lblArtists.setPreferredSize(new Dimension(150, 25));
-		lblArtists.setMinimumSize(new Dimension(0, 20));
-		lblArtists.setText("Artists");
-		scrollPane.setColumnHeaderView(lblArtists);
-
-		list = new JXList();
-		list.setAutoCreateRowSorter(true);
-		list.setBorder(new EmptyBorder(5, 5, 5, 5));
-		lblArtists.setLabelFor(list);
-		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.setModel(controller.getArtistListModel());
-		list.setSortable(true);
-		list.setComparator(null);
-		list.setSortOrder(SortOrder.ASCENDING);
-		((DefaultSortController<?>) list.getRowSorter()).sort();
-
-		scrollPane.setViewportView(list);
-
-		JScrollPane scrollPane_1 = new JScrollPane();
-		frame.getContentPane().add(scrollPane_1, "cell 1 1 2 1,grow");
-
-		JXTreeTable treeTable = new JXTreeTable();
-		scrollPane_1.setViewportView(treeTable);
+						new MigLayout("", "[300.00]10px[grow]", "[][][grow]"));
+				
+				JPanel panel = new JPanel();
+				frame.getContentPane().add(panel, "cell 0 0 2 1,grow");
+				panel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+				
+				JToolBar toolBar_2 = new JToolBar();
+				panel.add(toolBar_2);
+				toolBar_2.setFloatable(false);
+				
+						JXButton btnAddArtist = new JXButton();
+						toolBar_2.add(btnAddArtist);
+						btnAddArtist.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								artistDialog = (ArtistDialog) factory.getBean("artistDialog");
+								artistDialog.setLocationRelativeTo(frame);
+								if (artistDialog.showDialog()) {
+									list.setSelectedValue(artistDialog.getArtistName(), true);
+								}
+							}
+						});
+						btnAddArtist.setIcon(null);
+						btnAddArtist.setText("Add Artist");
+						
+								JXButton btnEditArtist = new JXButton();
+								toolBar_2.add(btnEditArtist);
+								btnEditArtist.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										// String artistName = (String) list.getSelectedValue();
+										// Artist artist = controller.get
+										// ArtistDialog editArtistDialog = new ArtistDialog();
+										// editArtistDialog.setLocationRelativeTo(frame);
+										// if (addArtistDialog.showDialog()) {
+										// controller.addArtist(addArtistDialog.getArtistName(),
+										// addArtistDialog.getArtistSortName(),
+										// addArtistDialog.getMusicBrainzID(),
+										// addArtistDialog.getDiscogsURL());
+										// list.setSelectedValue(addArtistDialog.getArtistName(), true);
+										// }
+									}
+								});
+								btnEditArtist.setIcon(null);
+								btnEditArtist.setText("Edit Artist");
+								
+										JXButton btnRemoveArtist = new JXButton();
+										toolBar_2.add(btnRemoveArtist);
+										btnRemoveArtist.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+												controller.removeArtist(list.getSelectedValue());
+											}
+										});
+										btnRemoveArtist.setIcon(null);
+										btnRemoveArtist.setText("Remove Artist");
+										
+										JToolBar toolBar_3 = new JToolBar();
+										panel.add(toolBar_3);
+										toolBar_3.setFloatable(false);
+										
+												JXButton btnAddRelease = new JXButton();
+												toolBar_3.add(btnAddRelease);
+												btnAddRelease.setIcon(null);
+												btnAddRelease.setText("Add Release");
+												
+														JXButton btnEditSelected = new JXButton();
+														toolBar_3.add(btnEditSelected);
+														btnEditSelected.setIcon(null);
+														btnEditSelected.setText("Edit Selected");
+														
+																JXButton btnDeleteSelected = new JXButton();
+																toolBar_3.add(btnDeleteSelected);
+																btnDeleteSelected.addActionListener(new ActionListener() {
+																	public void actionPerformed(ActionEvent e) {
+																	}
+																});
+																btnDeleteSelected.setIcon(null);
+																btnDeleteSelected.setText("Delete Selected");
+		
+				JScrollPane scrollPane = new JScrollPane();
+				frame.getContentPane().add(scrollPane, "flowx,cell 0 1 1 2,grow");
+				
+				list = new JXList();
+				list.setAutoCreateRowSorter(true);
+				list.setBorder(new EmptyBorder(5, 5, 5, 5));
+				list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				list.setModel(controller.getArtistListModel());
+				list.setSortable(true);
+				list.setComparator(null);
+				list.setSortOrder(SortOrder.ASCENDING);
+				((DefaultSortController<?>) list.getRowSorter()).sort();
+				scrollPane.setViewportView(list);
+				
+				JPanel panel_1 = new JPanel();
+				frame.getContentPane().add(panel_1, "cell 1 1,grow");
+				panel_1.setLayout(new MigLayout("", "[26px][grow]", "[14px][]"));
+				
+				JXLabel lblArtist = new JXLabel();
+				lblArtist.setFont(new Font("Tahoma", Font.BOLD, 16));
+				lblArtist.setText("Audioslave");
+				panel_1.add(lblArtist, "cell 0 0,alignx left,aligny center");
+				
+				JPanel panel_3 = new JPanel();
+				panel_1.add(panel_3, "cell 1 0,alignx right,growy");
+				panel_3.setLayout(new MigLayout("", "[][]", "[14px]"));
+				
+				JButton lblMb = new JButton();
+				lblMb.setMargin(new Insets(2, 2, 2, 0));
+				panel_3.add(lblMb, "cell 0 0");
+				lblMb.setText("MB");
+				
+				JButton lblDg = new JButton();
+				lblDg.setMargin(new Insets(2, 2, 2, 0));
+				lblDg.setEnabled(false);
+				panel_3.add(lblDg, "cell 1 0");
+				lblDg.setText("DG");
+				
+				JPanel panel_2 = new JPanel();
+				panel_1.add(panel_2, "cell 0 1 2 1,grow");
+				panel_2.setLayout(new FlowLayout(FlowLayout.LEFT, 2, 0));
+				
+				JXLabel lblReleases = new JXLabel();
+				lblReleases.setText("17 Releases:");
+				panel_2.add(lblReleases);
+				
+				JXLabel lblOwned = new JXLabel();
+				lblOwned.setForeground(new Color(0, 128, 0));
+				panel_2.add(lblOwned);
+				lblOwned.setText("10 Owned");
+				
+				JXLabel label = new JXLabel();
+				panel_2.add(label);
+				label.setText("-");
+				
+				JXLabel lblPending = new JXLabel();
+				lblPending.setForeground(new Color(0, 0, 128));
+				panel_2.add(lblPending);
+				lblPending.setText("3 Pending");
+				
+				JXLabel label_1 = new JXLabel();
+				panel_2.add(label_1);
+				label_1.setText("-");
+				
+				JXLabel lblMissing = new JXLabel();
+				lblMissing.setForeground(new Color(165, 42, 42));
+				panel_2.add(lblMissing);
+				lblMissing.setText("5 Missing");
+		
+				JScrollPane scrollPane_1 = new JScrollPane();
+				frame.getContentPane().add(scrollPane_1, "cell 1 2,grow");
+				
+				JXTreeTable treeTable = new JXTreeTable();
+				scrollPane_1.setViewportView(treeTable);
 
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
