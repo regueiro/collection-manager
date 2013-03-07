@@ -21,6 +21,8 @@ import net.miginfocom.swing.MigLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 
 @Component
 @Lazy
@@ -46,6 +48,7 @@ public class ArtistDialog extends JDialog {
 
 	@Autowired
 	private MainWindowController controller;
+	private final Action action = new AddArtistAction();
 	/**
 	 * Create the dialog.
 	 */
@@ -236,21 +239,7 @@ public class ArtistDialog extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						try {
-//							validateInput();
-							setValues();
-							returnValue = true;
-							clear();
-							dispose();
-						} catch (IllegalArgumentException ex) {
-							JOptionPane.showMessageDialog(
-									contentPanel.getParent(), ex.getMessage(),
-									"Input Error", JOptionPane.ERROR_MESSAGE);
-						}
-					}
-				});
+				okButton.setAction(action);
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -269,4 +258,23 @@ public class ArtistDialog extends JDialog {
 		}
 	}
 
+	private class AddArtistAction extends AbstractAction {
+		public AddArtistAction() {
+			putValue(NAME, "Add");
+			putValue(SHORT_DESCRIPTION, "Saving artist");
+		}
+		public void actionPerformed(ActionEvent e) {
+			try {
+//				validateInput();
+				setValues();
+				returnValue = true;
+				clear();
+				dispose();
+			} catch (IllegalArgumentException ex) {
+				JOptionPane.showMessageDialog(
+						contentPanel.getParent(), ex.getMessage(),
+						"Input Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
 }
