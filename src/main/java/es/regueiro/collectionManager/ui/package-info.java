@@ -1,8 +1,5 @@
 /**
+ * Swing user interface for managing the collection
  * 
- */
-/**
- * @author santi
- *
  */
 package es.regueiro.collectionManager.ui;

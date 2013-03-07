@@ -1,8 +1,5 @@
 /**
+ * Contains the definitions for the domain model objects
  * 
- */
-/**
- * @author santi
- *
  */
 package es.regueiro.collectionManager.model;

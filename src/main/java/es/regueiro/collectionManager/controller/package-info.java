@@ -1,9 +1,6 @@
 /**
+ * Contains the controllers for managing the collection
  * 
- */
-/**
- * @author santi
- *
  */
 package es.regueiro.collectionManager.controller;
 

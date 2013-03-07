@@ -3,13 +3,7 @@ package es.regueiro.collectionManager.model;
 import java.net.URL;
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
-
 import es.regueiro.collectionManager.utils.validator.NullOrNotBlank;
 import es.regueiro.collectionManager.utils.validator.NullOrPattern;
 
