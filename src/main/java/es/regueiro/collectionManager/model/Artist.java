@@ -3,9 +3,15 @@ package es.regueiro.collectionManager.model;
 import java.net.URL;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import es.regueiro.collectionManager.utils.validator.NullOrNotBlank;
+import es.regueiro.collectionManager.utils.validator.NullOrPattern;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -13,13 +19,12 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class Artist {
 
+	private long id;
 	private String name;
 	private String sortName;
-	private long id;
-	private List<Release> releaseList;
-	private List<Release> releaseListVA;
 	private String musicBrainzID;
 	private URL discogsURL;
+	private List<Release> releaseList;
 
 	/**
 	 * Instantiates a new artist.
@@ -32,13 +37,12 @@ public class Artist {
 		this.name = name;
 	}
 
-	
 	/**
 	 * Gets the name.
 	 * 
 	 * @return the name
 	 */
-	@NotEmpty(message="The artist name can't be null")
+	@NotBlank(message = "{artistName.notBlank}")
 	public String getName() {
 		return name;
 	}
@@ -58,6 +62,7 @@ public class Artist {
 	 * 
 	 * @return the sort name
 	 */
+	@NullOrNotBlank(message = "{artistSortName.notBlank}")
 	public String getSortName() {
 		return sortName;
 	}
@@ -111,30 +116,11 @@ public class Artist {
 	}
 
 	/**
-	 * Gets the release list va.
-	 * 
-	 * @return the release list va
-	 */
-	public List<Release> getReleaseListVA() {
-		return releaseListVA;
-	}
-
-	/**
-	 * Sets the release list va.
-	 * 
-	 * @param releaseListVA
-	 *            the new release list va
-	 */
-	public void setReleaseListVA(List<Release> releaseListVA) {
-		this.releaseListVA = releaseListVA;
-	}
-
-	/**
 	 * Gets the music brainz id.
 	 * 
 	 * @return the music brainz id
 	 */
-//	@Pattern(regexp = "[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}")
+	@NullOrPattern(message = "{artistMBID.notValid}", regexp = "[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}")
 	public String getMusicBrainzID() {
 		return musicBrainzID;
 	}
@@ -168,8 +154,9 @@ public class Artist {
 		this.discogsURL = discogsURL;
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
