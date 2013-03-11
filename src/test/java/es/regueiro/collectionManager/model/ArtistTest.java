@@ -57,7 +57,7 @@ public class ArtistTest {
 		assertEquals(messages.getString("artistName.notBlank"),
 				constraintViolations.iterator().next().getMessage());
 
-		// The artist name can't be null empty
+		// The artist name can't be empty
 		artist.setName("");
 		constraintViolations = validator.validate(artist);
 		assertEquals(1, constraintViolations.size());
@@ -76,46 +76,8 @@ public class ArtistTest {
 		constraintViolations = validator.validate(artist);
 		assertEquals(0, constraintViolations.size());
 
-		// Can set a null sort name
-		artist.setSortName(null);
-		constraintViolations = validator.validate(artist);
-		assertEquals(0, constraintViolations.size());
-
-		// The artist sort name can't be empty
-		artist.setSortName("");
-		constraintViolations = validator.validate(artist);
-		assertEquals(1, constraintViolations.size());
-		assertEquals(messages.getString("artistSortName.notBlank"),
-				constraintViolations.iterator().next().getMessage());
-
-		// The artist sort name can't be blank
-		artist.setSortName("   ");
-		constraintViolations = validator.validate(artist);
-		assertEquals(1, constraintViolations.size());
-		assertEquals(messages.getString("artistSortName.notBlank"),
-				constraintViolations.iterator().next().getMessage());
-
-		// Can set a valid sort name
-		artist.setSortName("sort name");
-		constraintViolations = validator.validate(artist);
-		assertEquals(0, constraintViolations.size());
-
 		String mbID1 = "ea71d0d3-4a60-4bd3-9cfe-9c0eec380ea4";
 		String mbID2 = "9d2b8399-bdda-4b65-9d97-c7a2f7e1f32c";
-
-		// The musicbrainzid can't be empty
-		artist.setMusicBrainzID("");
-		constraintViolations = validator.validate(artist);
-		assertEquals(1, constraintViolations.size());
-		assertEquals(messages.getString("artistMBID.notValid"),
-				constraintViolations.iterator().next().getMessage());
-
-		// The musicbrainzid can't be blank
-		artist.setMusicBrainzID("   ");
-		constraintViolations = validator.validate(artist);
-		assertEquals(1, constraintViolations.size());
-		assertEquals(messages.getString("artistMBID.notValid"),
-				constraintViolations.iterator().next().getMessage());
 
 		// The musicbrainzid can't be invalid
 		artist.setMusicBrainzID("1234541243-123412");
