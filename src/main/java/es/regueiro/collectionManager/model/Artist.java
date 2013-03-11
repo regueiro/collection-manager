@@ -1,15 +1,22 @@
 package es.regueiro.collectionManager.model;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotBlank;
 import es.regueiro.collectionManager.utils.validator.NullOrNotBlank;
 import es.regueiro.collectionManager.utils.validator.NullOrPattern;
+import es.regueiro.collectionManager.utils.validator.ValidationUtils;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class Artist.
+ */
+/**
+ * @author santi
+ * 
  */
 public class Artist {
 
@@ -48,7 +55,11 @@ public class Artist {
 	 *            the new name
 	 */
 	public void setName(String name) {
-		this.name = name;
+		if (!StringUtils.isBlank(name)) {
+			this.name = name;
+		} else {
+			this.name = null;
+		}
 	}
 
 	/**
@@ -56,7 +67,6 @@ public class Artist {
 	 * 
 	 * @return the sort name
 	 */
-	@NullOrNotBlank(message = "{artistSortName.notBlank}")
 	public String getSortName() {
 		return sortName;
 	}
@@ -68,7 +78,11 @@ public class Artist {
 	 *            the new sort name
 	 */
 	public void setSortName(String sortName) {
-		this.sortName = sortName;
+		if (!StringUtils.isBlank(sortName)) {
+			this.sortName = sortName;
+		} else {
+			this.sortName = null;
+		}
 	}
 
 	/**
@@ -96,25 +110,46 @@ public class Artist {
 	 * @return the release list
 	 */
 	public List<Release> getReleaseList() {
-		return releaseList;
+		return Collections.unmodifiableList(releaseList);
 	}
 
 	/**
-	 * Sets the release list.
+	 * Adds a new release.
 	 * 
-	 * @param releaseList
-	 *            the new release list
+	 * @param release
+	 *            the release
 	 */
-	public void setReleaseList(List<Release> releaseList) {
-		this.releaseList = releaseList;
+	public void addRelease(Release release) {
+		this.releaseList.add(release);
 	}
 
 	/**
-	 * Gets the music brainz id.
+	 * Removes the release.
 	 * 
-	 * @return the music brainz id
+	 * @param release
+	 *            the release
 	 */
-	@NullOrPattern(message = "{artistMBID.notValid}", regexp = "[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}")
+	public void removeRelease(Release release) {
+		this.releaseList.remove(release);
+	}
+
+	/**
+	 * Checks for release.
+	 * 
+	 * @param release
+	 *            the release
+	 * @return true, if successful
+	 */
+	public boolean hasRelease(Release release) {
+		return this.releaseList.contains(release);
+	}
+
+	/**
+	 * Gets the musicbrainz id.
+	 * 
+	 * @return the musicbrainz id
+	 */
+	@NullOrPattern(message = "{artistMBID.notValid}", regexp = ValidationUtils.mbPattern)
 	public String getMusicBrainzID() {
 		return musicBrainzID;
 	}
@@ -126,7 +161,11 @@ public class Artist {
 	 *            the new music brainz id
 	 */
 	public void setMusicBrainzID(String musicBrainzID) {
-		this.musicBrainzID = musicBrainzID;
+		if (!StringUtils.isBlank(musicBrainzID)) {
+			this.musicBrainzID = musicBrainzID;
+		} else {
+			this.musicBrainzID = null;
+		}
 	}
 
 	/**

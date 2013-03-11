@@ -1,14 +1,11 @@
 package es.regueiro.collectionManager.model;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
-
-import es.regueiro.collectionManager.utils.validator.NullOrNotBlank;
 import es.regueiro.collectionManager.utils.validator.NullOrPattern;
+import es.regueiro.collectionManager.utils.validator.ValidationUtils;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -21,11 +18,12 @@ public class Release {
 	private String musicBrainzID;
 	private String discogsURL;
 	private String year;
-	private boolean owned;
-	private boolean pending;
-	private boolean ignored;
+	private boolean owned = false;
+	private boolean pending = false;
+	private boolean ignored = false;
 	private Quality quality;
 	private String notes;
+	private Artist artist;
 
 	/**
 	 * Instantiates a new release.
@@ -33,8 +31,9 @@ public class Release {
 	 * @param title
 	 *            the title
 	 */
-	public Release(String title) {
+	public Release(Artist artist, String title) {
 		super();
+		this.artist = artist;
 		this.title = title;
 	}
 
@@ -43,7 +42,7 @@ public class Release {
 	 * 
 	 * @return the title
 	 */
-	@NotBlank(message = "The title of the release can't be empty")
+	@NotBlank(message = "{releaseTitle.notBlank}")
 	public String getTitle() {
 		return title;
 	}
@@ -55,7 +54,11 @@ public class Release {
 	 *            the title to set
 	 */
 	public void setTitle(String title) {
-		this.title = title;
+		if (!StringUtils.isBlank(title)) {
+			this.title = title;
+		} else {
+			this.title = null;
+		}
 	}
 
 	/**
@@ -74,27 +77,35 @@ public class Release {
 	 *            the type to set
 	 */
 	public void setType(String type) {
-		this.type = type;
+		if (!StringUtils.isBlank(type)) {
+			this.type = type;
+		} else {
+			this.type = null;
+		}
 	}
 
 	/**
-	 * Gets the music brainz id.
+	 * Gets the musicbrainz id.
 	 * 
 	 * @return the musicBrainzID
 	 */
-	@NullOrPattern(regexp = "[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}", message = "The MusicBrainz ID must be a valid ID")
+	@NullOrPattern(regexp = ValidationUtils.mbPattern, message = "{releaseMBID.notValid}")
 	public String getMusicBrainzID() {
 		return musicBrainzID;
 	}
 
 	/**
-	 * Sets the music brainz id.
+	 * Sets the musicbrainz id.
 	 * 
 	 * @param musicBrainzID
 	 *            the musicBrainzID to set
 	 */
 	public void setMusicBrainzID(String musicBrainzID) {
-		this.musicBrainzID = musicBrainzID;
+		if (!StringUtils.isBlank(musicBrainzID)) {
+			this.musicBrainzID = musicBrainzID;
+		} else {
+			this.musicBrainzID = null;
+		}
 	}
 
 	/**
@@ -121,7 +132,7 @@ public class Release {
 	 * 
 	 * @return the year
 	 */
-	@NullOrPattern(regexp = "[0-9]{4}", message = "The year must consist of 4 digits")
+	@NullOrPattern(regexp = "[0-9]{4}", message = "{releaseYear.4digits}")
 	public String getYear() {
 		return year;
 	}
@@ -133,7 +144,11 @@ public class Release {
 	 *            the year to set
 	 */
 	public void setYear(String year) {
-		this.year = null;
+		if (!StringUtils.isBlank(year)) {
+			this.year = year;
+		} else {
+			this.year = null;
+		}
 	}
 
 	/**
@@ -227,9 +242,22 @@ public class Release {
 	 * @param notes
 	 *            the notes to set
 	 */
-	@NullOrNotBlank(message = "The notes can't be an empty string")
 	public void setNotes(String notes) {
-		this.notes = notes;
+		if (!StringUtils.isBlank(notes)) {
+			this.notes = notes;
+		} else {
+			this.notes = null;
+		}
+	}
+
+	/**
+	 * Gets the artist.
+	 *
+	 * @return the artist
+	 */
+	@NotNull(message = "{releaseArtist.notNull}")
+	public Artist getArtist() {
+		return artist;
 	}
 
 }

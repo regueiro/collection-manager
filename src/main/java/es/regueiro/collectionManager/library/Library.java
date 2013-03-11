@@ -21,4 +21,6 @@ public interface Library {
 
 	public List<Artist> getArtistList();
 
+	public void clear();
+
 }

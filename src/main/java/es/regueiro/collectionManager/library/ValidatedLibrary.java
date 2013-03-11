@@ -1,6 +1,7 @@
 package es.regueiro.collectionManager.library;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -71,7 +72,12 @@ public class ValidatedLibrary implements Library {
 
 	@Override
 	public List<Artist> getArtistList() {
-		return artistList;
+		return Collections.unmodifiableList(artistList);
+	}
+
+	@Override
+	public void clear() {
+		this.artistList.clear();
 	}
 
 }

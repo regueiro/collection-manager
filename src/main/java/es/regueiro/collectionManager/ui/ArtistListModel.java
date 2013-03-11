@@ -32,7 +32,7 @@ public class ArtistListModel extends AbstractListModel<Artist> {
 
 	public void clear() {
 		int end = this.getSize();
-		library.getArtistList().clear();
+		library.clear();
 		this.fireIntervalRemoved(this, 0, end);
 	}
 
@@ -50,7 +50,7 @@ public class ArtistListModel extends AbstractListModel<Artist> {
 	}
 
 	public void addArtist(Artist artist) {
-		library.getArtistList().add(artist);
+		library.addArtist(artist);
 
 		this.fireIntervalAdded(this, library.getArtistList().indexOf(artist),
 				library.getArtistList().indexOf(artist));
@@ -61,7 +61,7 @@ public class ArtistListModel extends AbstractListModel<Artist> {
 
 		if (artist != null) {
 			int index = library.getArtistList().indexOf(artist);
-			library.getArtistList().remove(index);
+			library.removeArtist(artist);
 			this.fireIntervalRemoved(this, index, index);
 		}
 
