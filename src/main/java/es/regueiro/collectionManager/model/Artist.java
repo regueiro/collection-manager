@@ -4,7 +4,13 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotBlank;
 import es.regueiro.collectionManager.utils.validator.NullOrNotBlank;
 import es.regueiro.collectionManager.utils.validator.NullOrPattern;
@@ -18,15 +24,27 @@ import es.regueiro.collectionManager.utils.validator.ValidationUtils;
  * @author santi
  * 
  */
+@Entity
 public class Artist {
 
+	@Id
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy = "increment")
 	private long id;
 	private String name;
+	@Transient
 	private String sortName;
+	@Transient
 	private String musicBrainzID;
+	@Transient
 	private URL discogsURL;
+	@Transient
 	private List<Release> releaseList;
 
+	public Artist() {
+		
+	}
+	
 	/**
 	 * Instantiates a new artist.
 	 * 
@@ -90,6 +108,7 @@ public class Artist {
 	 * 
 	 * @return the id
 	 */
+
 	public long getId() {
 		return id;
 	}

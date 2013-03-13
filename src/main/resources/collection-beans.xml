@@ -9,6 +9,68 @@
 	<context:component-scan base-package="es.regueiro.collectionManager">
 	</context:component-scan>
 
+
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+
 	<bean id="validator"
 		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="org.apache.derby.jdbc.EmbeddedDriver" />
+		<property name="jdbcUrl" value="jdbc:derby:memory:memDB;create=true" />
+		<property name="user" value="test" />
+		<property name="password" value="test" />
+		<property name="initialPoolSize">
+			<value>1</value>
+		</property>
+		<property name="minPoolSize">
+			<value>1</value>
+		</property>
+		<property name="maxPoolSize">
+			<value>50</value>
+		</property>
+		<!-- <property name="timeout"><value>0</value></property> -->   <!-- 0 means: no timeout -->
+		<property name="idleConnectionTestPeriod">
+			<value>200</value>
+		</property>
+		<property name="acquireIncrement">
+			<value>1</value>
+		</property>
+		<property name="maxStatements">
+			<value>0</value>
+		</property>  <!-- 0 means: statement caching is turned off. -->
+		<property name="numHelperThreads">
+			<value>3</value>
+		</property>  <!-- 3 is default -->
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="es.regueiro.collectionManager.model" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="dialect">
+					org.hibernate.dialect.DerbyDialect
+				</prop>
+				<prop key="current_session_context_class">
+					thread
+				</prop>
+				<prop key="show_sql">
+					true
+				</prop>
+				<prop key="format_sql">
+					true
+				</prop>
+				<prop key="hibernate.hbm2ddl.auto">
+					create
+				</prop>
+			</props>
+		</property>
+	</bean>
+
 </beans>

@@ -13,13 +13,13 @@ import org.springframework.stereotype.Component;
 import es.regueiro.collectionManager.model.Artist;
 
 @Component
-public class ValidatedLibrary implements Library {
+public class InMemoryValidatedLibrary implements Library {
 
 	@Autowired
 	private Validator validator;
 	private List<Artist> artistList;
 
-	public ValidatedLibrary() {
+	public InMemoryValidatedLibrary() {
 		this.artistList = new ArrayList<Artist>();
 	}
 
