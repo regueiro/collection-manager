@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
-	http://www.springframework.org/schema/context/spring-context.xsd">
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
+	<!-- Scans all classes for spring @Component and compatible annotations -->
 	<context:component-scan base-package="es.regueiro.collectionManager">
 	</context:component-scan>
 
-
-	<bean
-		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-
-
+	<!-- Loads the factory for the domain validation to work -->
 	<bean id="validator"
 		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 
 
+	<!-- Translates hibernate and other orm exceptions to spring exceptions -->
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<!-- Creates the data source for accessing the database -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="org.apache.derby.jdbc.EmbeddedDriver" />
 		<property name="jdbcUrl" value="jdbc:derby:memory:memDB;create=true" />
@@ -47,6 +54,7 @@
 		</property>  <!-- 3 is default -->
 	</bean>
 
+	<!-- Creates the session factory -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 
@@ -72,5 +80,28 @@
 			</props>
 		</property>
 	</bean>
+
+	<!-- Loads the transaction manager -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- Defines the transaction configuration -->
+	
+	<tx:annotation-driven/>
+	<!-- 
+	<tx:advice id="txAdvice">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="*" propagation="SUPPORTS" read-only="true" />
+		</tx:attributes>
+	</tx:advice> -->
+
+	<!-- Defines the aspect for the transaction advices 
+	<aop:config>
+		<aop:advisor pointcut="execution(* *..ArtistDAO.*(..))"
+			advice-ref="txAdvice" />
+	</aop:config>-->
 
 </beans>
