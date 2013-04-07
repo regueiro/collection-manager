@@ -1,18 +1,6 @@
-*.class
-
-# Package Files #
-*.jar
-*.war
-*.ear
-
 .classpath
+.settings
 .project
-.settings/
 target/
 
 .springBeans
-
-/diagrams
-doc/
-/src/main/resources/forms-1.3.0-src.zip
-/src/main/resources/miglayout-src.zip

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Home</title>
+
+
+<link rel="stylesheet" th:href="@{/resources/assets/css/bootstrap.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/assets/css/bootstrap-responsive.css}" />
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span2">
+				Sidebar
+				<p>sidebar content</p>
+			</div>
+			<div class="span10">
+
+				<h1>Collection Manager</h1>
+				Manage your collection
+
+
+				<p>The time on the server is ${serverTime}.</p>
+
+				<h2>Testing Connection</h2>
+
+				<p><th th:text="${test}" /></p>
+
+				<h2>Testing Settings</h2>
+
+				<p><th th:text="${settings}" /></p>
+
+				<h2>Testing API</h2>
+
+				<p><th th:text="${testapi}" /></p>
+				
+				<a th:href="@{/test}">Test JPS views</a>
+
+			</div>
+		</div>
+	</div>
+
+	<script th:src="@{/resources/assets/js/bootstrap.js}"></script>
+</body>
+</html>
