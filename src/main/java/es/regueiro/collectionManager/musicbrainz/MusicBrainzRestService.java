@@ -156,13 +156,13 @@ public class MusicBrainzRestService {
 			// Find the current time
 			Date currentDate = new Date();
 			// and compare it with the time of the last query
-			long differenceNowLast = currentDate.getTime()
+			long timeSinceLastQuery = currentDate.getTime()
 					- lastQueryTimeStamp.getTime();
 
 			// The time we have to wait until the next possible query is the
 			// difference between the maximum waiting time and the time
 			// that passed since the last query completed.
-			long timeLeftToWait = waitTime - differenceNowLast;
+			long timeLeftToWait = waitTime - timeSinceLastQuery;
 
 			// if we have to wait
 			if (timeLeftToWait > 0) {
