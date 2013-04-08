@@ -36,6 +36,8 @@
 				<h2>Testing API</h2>
 
 				<p>${testapi}</p>
+				
+				<a href="testAPI">Test Thymeleaf views</a>
 
 			</div>
 		</div>

@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import es.regueiro.collectionManager.musicbrainz.MusicBrainzManager;
+
 
 
 /**
@@ -22,20 +24,32 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-//	@Autowired
-//	private TraktManager manager;
+	@Autowired
+	private MusicBrainzManager manager;
 //	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index() {
+	public String home() {
 		logger.info("Requested index");
 		return "index.html";
 	}
 	
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	@RequestMapping(value = "/about", method = RequestMethod.GET)
+	public String about() {
+		logger.info("Requested about");
+		return "about.html";
+	}
+	
+	@RequestMapping(value = "/contact", method = RequestMethod.GET)
+	public String contact() {
+		logger.info("Requested contact");
+		return "contact.html";
+	}
+	
+	@RequestMapping(value = "/testAPI", method = RequestMethod.GET)
+	public String testAPI(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		Date date = new Date();
@@ -48,14 +62,14 @@ public class HomeController {
 		//manager.setAuthentication("burn", "e8d9eb1ad4422997f374336a4f440f0a58870431");
 //		manager.setAuthentication("springtest", "f151180b4819548af1170ccd9d97de52dc82e303");
 		//model.addAttribute("testapi", manager.activityService().community());
-//		model.addAttribute("test", manager.accountService().test());
+		model.addAttribute("test", manager.artistService().test());
 //		model.addAttribute("settings", manager.accountService().settings());
 //		
 		return "home.html";
 	}
 	
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public String test(Locale locale, Model model) {
+	@RequestMapping(value = "/testAPIJSP", method = RequestMethod.GET)
+	public String testJSP(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		Date date = new Date();
@@ -72,6 +86,13 @@ public class HomeController {
 //		model.addAttribute("settings", manager.accountService().settings());
 //		
 		return "home";
+	}
+	
+	@RequestMapping(value = "/defaultTemplate", method = RequestMethod.GET)
+	public String defaultTemplate() {
+		logger.info("Requested default template");
+			
+		return "defaultTemplate.html";
 	}
 	
 }

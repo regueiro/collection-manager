@@ -20,7 +20,7 @@
 	<bean id="templateResolver"
 		class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
 		<property name="prefix" value="/WEB-INF/thymeleaf/" />
-		<!--<property name="suffix" value=".html" />-->
+		<!--<property name="suffix" value=".html" /> -->
 		<property name="templateMode" value="HTML5" />
 		<!-- Template cache is set to false (default is true). -->
 		<property name="cacheable" value="false" />
@@ -28,6 +28,11 @@
 
 	<bean id="templateEngine" class="org.thymeleaf.spring3.SpringTemplateEngine">
 		<property name="templateResolver" ref="templateResolver" />
+		<property name="additionalDialects">
+			<set>
+				<bean class="nz.net.ultraq.web.thymeleaf.LayoutDialect" />
+			</set>
+		</property>
 	</bean>
 
 	<bean class="org.thymeleaf.spring3.view.ThymeleafViewResolver">

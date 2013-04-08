@@ -1,18 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="fragments/template.html">
 <head>
-<title>Home</title>
-
-
-<link rel="stylesheet" th:href="@{/resources/assets/css/bootstrap.css}" />
-<link rel="stylesheet"
-	th:href="@{/resources/assets/css/bootstrap-responsive.css}" />
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
-
+<title>Collection Manager</title>
 </head>
-
 <body>
-	<div class="container-fluid">
+	<section layout:fragment="content">
 		<div class="row-fluid">
 			<div class="span2">
 				Sidebar
@@ -38,12 +32,10 @@
 
 				<p><th th:text="${testapi}" /></p>
 				
-				<a th:href="@{/test}">Test JPS views</a>
+				<a th:href="@{/testAPIJSP}">Test JSP views</a>
 
 			</div>
 		</div>
-	</div>
-
-	<script th:src="@{/resources/assets/js/bootstrap.js}"></script>
+	</section>
 </body>
 </html>

@@ -44,6 +44,7 @@ public class HttpComponentsClientHttpRequestFactoryBasicAuth extends
 		// new AuthScope(targetHost.getHostName(), targetHost.getPort()),
 		// new UsernamePasswordCredentials(username, sha1pass));
 
+		this.client.getParams().setParameter("http.useragent", "collection-manager/0.1-test ( https://github.com/regueiro/collection-manager )");
 		// Create AuthCache instance
 		AuthCache authCache = new BasicAuthCache();
 		// Generate BASIC scheme object and add it to the local auth cache
