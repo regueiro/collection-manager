@@ -1,7 +1,10 @@
 package es.regueiro.collectionManager.model;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+
+
 
 //import javax.persistence.Entity;
 //import javax.persistence.GeneratedValue;
@@ -34,6 +37,12 @@ public class Artist {
 	private String sortName;
 //	@Transient
 	private String musicBrainzID;
+
+	private String type;
+	private String country;
+	
+	private Date begin;
+	private Date end;
 //	@Transient
 	private List<Release> releaseList;
 
@@ -183,12 +192,62 @@ public class Artist {
 		}
 	}
 
+	
+
 	/**
+	 * @return the type
 	 */
+	private String getType() {
+		return type;
 	}
 
 	/**
+	 * @param type the type to set
 	 */
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	/**
+	 * @return the country
+	 */
+	public String getCountry() {
+		return country;
+	}
+
+	/**
+	 * @param country the country to set
+	 */
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	/**
+	 * @return the begin
+	 */
+	public Date getBegin() {
+		return begin;
+	}
+
+	/**
+	 * @param begin the begin to set
+	 */
+	public void setBegin(Date begin) {
+		this.begin = begin;
+	}
+
+	/**
+	 * @return the end
+	 */
+	public Date getEnd() {
+		return end;
+	}
+
+	/**
+	 * @param end the end to set
+	 */
+	public void setEnd(Date end) {
+		this.end = end;
 	}
 
 	/*
