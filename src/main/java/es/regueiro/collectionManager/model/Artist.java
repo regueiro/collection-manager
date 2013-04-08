@@ -1,6 +1,5 @@
 package es.regueiro.collectionManager.model;
 
-import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,7 +11,6 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 //import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotBlank;
-import es.regueiro.collectionManager.utils.validator.NullOrNotBlank;
 import es.regueiro.collectionManager.utils.validator.NullOrPattern;
 import es.regueiro.collectionManager.utils.validator.ValidationUtils;
 
@@ -36,8 +34,6 @@ public class Artist {
 	private String sortName;
 //	@Transient
 	private String musicBrainzID;
-//	@Transient
-	private URL discogsURL;
 //	@Transient
 	private List<Release> releaseList;
 
@@ -188,22 +184,11 @@ public class Artist {
 	}
 
 	/**
-	 * Gets the discogs url.
-	 * 
-	 * @return the discogs url
 	 */
-	public URL getDiscogsURL() {
-		return discogsURL;
 	}
 
 	/**
-	 * Sets the discogs url.
-	 * 
-	 * @param discogsURL
-	 *            the new discogs url
 	 */
-	public void setDiscogsURL(URL discogsURL) {
-		this.discogsURL = discogsURL;
 	}
 
 	/*

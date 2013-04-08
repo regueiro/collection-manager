@@ -33,18 +33,18 @@ public class ArtistController {
 		artist.setSortName(sortName);
 		artist.setMusicBrainzID(musicBrainzID);
 
-		if (!StringUtils.isEmpty(discogsURL)) {
-			String http = "http://";
-			if (!discogsURL.startsWith(http)) {
-				discogsURL = http.concat(discogsURL);
-			}
-
-			try {
-				artist.setDiscogsURL(new URL(discogsURL));
-			} catch (MalformedURLException exc) {
-				errorMessage.append("The entered discogs URL is invalid\n");
-			}
-		}
+//		if (!StringUtils.isEmpty(discogsURL)) {
+//			String http = "http://";
+//			if (!discogsURL.startsWith(http)) {
+//				discogsURL = http.concat(discogsURL);
+//			}
+//
+//			try {
+//				artist.setDiscogsURL(new URL(discogsURL));
+//			} catch (MalformedURLException exc) {
+//				errorMessage.append("The entered discogs URL is invalid\n");
+//			}
+//		}
 
 		Set<ConstraintViolation<Artist>> constraintViolations = validator
 				.validate(artist);
