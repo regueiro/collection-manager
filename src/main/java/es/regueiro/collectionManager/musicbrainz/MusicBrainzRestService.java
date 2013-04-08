@@ -19,10 +19,12 @@ public class MusicBrainzRestService {
 
 	private static Object lock = new Object();
 	private static Date lastQueryTimeStamp = new Date();
+	// TODO check if this is the correct place to store this number
 	private final static int maxQueriesPerSecond = 1;
 	private final long waitTime = 1000 / maxQueriesPerSecond;
-	
-	private static final Logger logger = LoggerFactory.getLogger(MusicBrainzRestService.class);
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(MusicBrainzRestService.class);
 
 	/** The rest manager used to execute the queries. */
 	@Autowired
@@ -100,9 +102,9 @@ public class MusicBrainzRestService {
 			String queryName, String query) {
 
 		throw new UnsupportedOperationException();
-//		T result = restManager.getTemplate().postForObject(
-//				constructUrl(URI, queryName, query), obj, returnType);
-//		return result;
+		// T result = restManager.getTemplate().postForObject(
+		// constructUrl(URI, queryName, query), obj, returnType);
+		// return result;
 	}
 
 	/**
@@ -123,12 +125,17 @@ public class MusicBrainzRestService {
 	}
 
 	/**
-	 * Generate and execute a get query
+	 * Generates and executes a get query
+	 * 
+	 * This method could be called from different threads. Since we need to
+	 * honour the maximum API calls limit imposed by MusicBrainz, all queries
+	 * will be synchronised using a mutex object to ensure we don't surpass this
+	 * limit.
 	 * 
 	 * @param <T>
-	 *            the generic type. Matches returnType class
+	 *            The type that will be returned. Matches returnType class
 	 * @param URI
-	 *            trakt URI for the query
+	 *            MusicBrainz URI for the query
 	 * @param returnType
 	 *            the desired return type of this query
 	 * @param query
@@ -137,28 +144,44 @@ public class MusicBrainzRestService {
 	 */
 	public <T> T get(String URI, Class<T> returnType, String queryName,
 			String query) {
+
+		// Construct the full query url outside of the mutex so we don't waste
+		// time inside the synchronized block
 		String url = constructUrl(URI, queryName, query);
 		T result;
-		
-		
+
+		// Wait for the other possible threads to liberate the lock
 		synchronized (lock) {
+
+			// Find the current time
 			Date currentDate = new Date();
-			long timeDifference = currentDate.getTime() - lastQueryTimeStamp.getTime();
-			
-			long timeLeftToWait = waitTime - timeDifference;
+			// and compare it with the time of the last query
+			long differenceNowLast = currentDate.getTime()
+					- lastQueryTimeStamp.getTime();
+
+			// The time we have to wait until the next possible query is the
+			// difference between the maximum waiting time and the time
+			// that passed since the last query completed.
+			long timeLeftToWait = waitTime - differenceNowLast;
+
+			// if we have to wait
 			if (timeLeftToWait > 0) {
-				logger.info("Waiting for "+timeLeftToWait+" ms.");
+				logger.info("Waiting for " + timeLeftToWait + " ms.");
 				try {
+					// we wait the needed time
 					Thread.sleep(timeLeftToWait);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
+					// TODO Auto-generated catch block for Thread.sleep
 					e.printStackTrace();
 				}
 			}
 
-			result = restManager.getTemplate()
-					.getForObject(url, returnType);
-			
+			// Now we can launch the query
+			// TODO add error response handling
+			result = restManager.getTemplate().getForObject(url, returnType);
+
+			// Finally, we update the time of the last query and release the
+			// lock
 			lastQueryTimeStamp = new Date();
 		}
 
