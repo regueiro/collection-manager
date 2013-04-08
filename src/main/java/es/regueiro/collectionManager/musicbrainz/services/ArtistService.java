@@ -1,7 +1,10 @@
 package es.regueiro.collectionManager.musicbrainz.services;
 
+import org.musicbrainz.mmd2.Artist;
+import org.musicbrainz.mmd2.Metadata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import es.regueiro.collectionManager.musicbrainz.MusicBrainzRestService;;
 
 // TODO: Auto-generated Javadoc
@@ -38,6 +41,11 @@ public class ArtistService {
 	public String test() {
 		return restService.search("artist", String.class, "artist", "fred");
 
+	}
+	
+	public Artist audioslave() {
+		Metadata data = restService.lookup("artist", "020bfbb4-05c3-4c86-b372-17825c262094", Metadata.class);
+		return data.getArtist();
 	}
 
 	/**

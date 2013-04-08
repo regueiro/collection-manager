@@ -62,9 +62,11 @@ public class HomeController {
 		//manager.setAuthentication("burn", "e8d9eb1ad4422997f374336a4f440f0a58870431");
 //		manager.setAuthentication("springtest", "f151180b4819548af1170ccd9d97de52dc82e303");
 		//model.addAttribute("testapi", manager.activityService().community());
-		model.addAttribute("test", manager.artistService().test());
+		
 //		model.addAttribute("settings", manager.accountService().settings());
-//		
+		
+		model.addAttribute("test", manager.artistService().audioslave().getName());
+
 		return "home.html";
 	}
 	
