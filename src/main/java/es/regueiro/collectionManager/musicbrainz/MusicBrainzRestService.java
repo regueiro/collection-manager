@@ -22,7 +22,7 @@ public class MusicBrainzRestService {
 	private final static int maxQueriesPerSecond = 1;
 	private final long waitTime = 1000 / maxQueriesPerSecond;
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MusicBrainzRestService.class);
 
 	/** The rest manager used to execute the queries. */
 	@Autowired
