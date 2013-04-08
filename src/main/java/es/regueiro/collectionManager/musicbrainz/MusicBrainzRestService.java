@@ -43,7 +43,7 @@ public class MusicBrainzRestService {
 				MusicBrainzConfig.traktPort, username, sha1password);
 	}
 
-	private String constructUrl(String URI, String queryName, String query) {
+	private String constructSearchUrl(String URI, String queryName, String query) {
 		StringBuilder builder = new StringBuilder();
 
 		builder.append(MusicBrainzConfig.baseURL);
@@ -61,6 +61,25 @@ public class MusicBrainzRestService {
 		builder.append(":");
 		if (query != null && !StringUtils.isEmpty(query)) {
 			builder.append(query);
+		}
+		return builder.toString();
+	}
+
+	private String constructLookupUrl(String entity, String mbid, String inc) {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(MusicBrainzConfig.baseURL);
+		if (!entity.startsWith("/")) {
+			builder.append("/");
+		}
+		builder.append(entity);
+		if (!entity.endsWith("/")) {
+			builder.append("/");
+		}
+		builder.append(mbid);
+		if (inc != null && !StringUtils.isEmpty(inc)) {
+			builder.append("?inc=");
+			builder.append(inc);
 		}
 		return builder.toString();
 	}
@@ -124,6 +143,26 @@ public class MusicBrainzRestService {
 		return get(URI, returnType, null);
 	}
 
+	public <T> T search(String URI, Class<T> returnType, String queryName,
+			String query) {
+
+		String url = constructSearchUrl(URI, queryName, query);
+		return get(url, returnType);
+	}
+
+	public <T> T lookup(String entity, String mbid, Class<T> returnType) {
+
+		String url = constructLookupUrl(entity, mbid, null);
+		return get(url, returnType);
+	}
+
+	public <T> T lookup(String entity, String mbid, Class<T> returnType,
+			String inc) {
+
+		String url = constructLookupUrl(entity, mbid, inc);
+		return get(url, returnType);
+	}
+
 	/**
 	 * Generates and executes a get query
 	 * 
@@ -142,12 +181,8 @@ public class MusicBrainzRestService {
 	 *            the query parameters
 	 * @return the result of the query
 	 */
-	public <T> T get(String URI, Class<T> returnType, String queryName,
-			String query) {
+	private <T> T get(String url, Class<T> returnType) {
 
-		// Construct the full query url outside of the mutex so we don't waste
-		// time inside the synchronized block
-		String url = constructUrl(URI, queryName, query);
 		T result;
 
 		// Wait for the other possible threads to liberate the lock

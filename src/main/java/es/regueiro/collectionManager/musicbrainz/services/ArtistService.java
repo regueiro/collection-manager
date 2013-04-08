@@ -36,7 +36,7 @@ public class ArtistService {
 	 * @return the string
 	 */
 	public String test() {
-		return restService.get("artist", String.class, "artist", "fred");
+		return restService.search("artist", String.class, "artist", "fred");
 
 	}
 
