@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>es.regueiro</groupId>
-	<artifactId>colection-manager</artifactId>
-	<name>colection-manager</name>
+	<artifactId>collection-manager</artifactId>
+	<name>collection-manager</name>
 	<packaging>war</packaging>
 	<version>0.1.0-BUILD-SNAPSHOT</version>
 	<properties>
