@@ -15,22 +15,20 @@
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
 
-<!-- 	<oxm:jaxb2-marshaller id="marshaller"> -->
-<!-- 		<oxm:class-to-be-bound name="es.regueiro.collectionManager.model.Artist" /> -->
-<!-- 	</oxm:jaxb2-marshaller> -->
-
-	<bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
-        <property name="packagesToScan">
-            <list>
-                <value>org.musicbrainz.mm2</value>
-            </list>
-        </property>
-        <!-- <property name="schema" value="classpath:org/springframework/oxm/schema.xsd"/> -->
-    </bean>
-
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
+
+
+<!-- 	<bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller"> -->
+<!-- 		<property name="packagesToScan"> -->
+<!-- 			<list> -->
+<!-- 				<value>org.musicbrainz.mm2</value> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 		<property name="schema" value="classpath:org/springframework/oxm/schema.xsd"/> -->
+<!-- 	</bean> -->
+
 
 	<bean id="templateResolver"
 		class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
