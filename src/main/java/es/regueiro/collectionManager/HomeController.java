@@ -7,6 +7,7 @@ import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,19 @@ public class HomeController {
 		return "index.html";
 	}
 	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login() {
+		logger.info("Requested login");
+		return "login.html";
+	}
+	
+	@RequestMapping(value = "/settings", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+	public String settings() {
+		logger.info("Requested settings");
+		return "settings.html";
+	}
+	
 	@RequestMapping(value = "/about", method = RequestMethod.GET)
 	public String about() {
 		logger.info("Requested about");
@@ -49,6 +63,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/testAPI", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
 	public String testAPI(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
