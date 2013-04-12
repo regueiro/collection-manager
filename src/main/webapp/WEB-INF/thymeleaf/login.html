@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="fragments/template.html">
+<head>
+<title>Collection Manager</title>
+</head>
+<body>
+	<section layout:fragment="content">
+		<div class="row-fluid">
+			<h2>Login</h2>
+			<br />
+			<div class="alert alert-error" th:if="${param.login_error!=null}">
+				<a class="close" data-dismiss="alert">×</a> <strong>Error!</strong>
+				Username or password incorrect.
+			</div>
+			<form th:action="@{/j_spring_security_check}" method="post"
+				accept-charset="UTF-8">
+				<div class="controls">
+				<input id="username" type="text" name='j_username'
+					placeholder="Username" />
+					
+				</div>
+<div class="controls">
+				<input id="password" type="password" name='j_password'
+					placeholder="Password" />
+					&nbsp;<a href="/account/resend_password">Forgot Password?</a>
+				<label class="checkbox string" for="remember_me"> <input
+						type="checkbox" id="remember_me"
+						name="_spring_security_remember_me" value="1" /> Remember me
+				</label>
+	</div>
+				<button type="submit" class="btn btn-primary">Sign In</button>
+			</form>
+
+			<br />
+			<h2>Register</h2>
+			<p>
+				Not a member? <a th:href="@{/account/register}">Register an
+					account</a>.
+			</p>
+
+			<script type="text/javascript">
+				document.getElementById('username').focus();
+			</script>
+		</div>
+	</section>
+</body>
+</html>

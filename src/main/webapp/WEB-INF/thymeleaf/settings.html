@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="fragments/template.html">
+<head>
+<title>Collection Manager</title>
+</head>
+<body>
+	<section layout:fragment="content">
+		<div class="row-fluid">
+		
+		<h1>User</h1>
+		   <div sec:authorize="${isAuthenticated()}">
+        <p th:inline="text">You are logged in as <b>[[${#authentication.name}]]</b>.</p>
+    </div>
+    <br/>
+    	<h2>Settings</h2>
+    	<p>Soon</p>
+    	<br/>
+    	<h2>Other</h2>
+    	<a th:href="@{/j_spring_security_logout}">Logout</a>
+			
+		</div>
+	</section>
+</body>
+</html>
