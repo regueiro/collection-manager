@@ -43,6 +43,12 @@ public class HomeController {
 		return "login.html";
 	}
 	
+	@RequestMapping(value = "/account/register", method = RequestMethod.GET)
+	public String register() {
+		logger.info("Requested register");
+		return "register.html";
+	}
+	
 	@RequestMapping(value = "/account/settings", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
 	public String settings() {
