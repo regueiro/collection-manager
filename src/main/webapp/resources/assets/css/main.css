@@ -16,6 +16,15 @@ navbar [class^="icon-"]{
   margin-top:2px !important;
 }
 
-
+@media ( max-width : 979px) {
+	
+	.navbar .nav-collapse .dropdown .nav-header {
+		color: #ededed;
+	}
+	
+	.navbar .string {
+		color: #ffffff
+	}
+}
 
 
