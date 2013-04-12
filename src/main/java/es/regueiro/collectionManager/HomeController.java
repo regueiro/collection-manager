@@ -37,7 +37,7 @@ public class HomeController {
 		return "index.html";
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/account/login", method = RequestMethod.GET)
 	public String login() {
 		logger.info("Requested login");
 		return "login.html";
