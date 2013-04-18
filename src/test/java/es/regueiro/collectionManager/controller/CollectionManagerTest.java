@@ -29,12 +29,12 @@ public class CollectionManagerTest {
 
 	@Test
 	public void test() {
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-				"collection-beans.xml");
-		
-		CollectionManager manager = (CollectionManager) context.getBean("collectionManager");
-		
-		manager.testCollection();
+//		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+//				"collection-beans.xml");
+//		
+//		CollectionManager manager = (CollectionManager) context.getBean("collectionManager");
+//		
+//		manager.testCollection();
 	}
 
 }

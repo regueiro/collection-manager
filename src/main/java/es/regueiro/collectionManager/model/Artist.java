@@ -197,7 +197,7 @@ public class Artist {
 	/**
 	 * @return the type
 	 */
-	private String getType() {
+	public String getType() {
 		return type;
 	}
 

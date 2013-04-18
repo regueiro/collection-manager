@@ -8,11 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import es.regueiro.collectionManager.HomeController;
 import es.regueiro.collectionManager.util.RestManager;
 
 /**
- * The Class TraktRestService.
+ * The Class MusicBrainzRestService.
  */
 @Component
 public class MusicBrainzRestService {
