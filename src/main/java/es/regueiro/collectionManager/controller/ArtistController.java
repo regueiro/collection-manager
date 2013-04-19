@@ -1,65 +1,121 @@
-package es.regueiro.collectionManager.controller;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import es.regueiro.collectionManager.model.Artist;
-
-@Component
-public class ArtistController {
-	@Autowired
-	private Validator validator;
-
-	public ArtistController() {
-	}
-
-	public Artist createArtist(String name) {
-		return this.createArtist(name, null, null, null);
-	}
-
-	public Artist createArtist(String name, String sortName,
-			String musicBrainzID, String discogsURL) {
-
-		StringBuilder errorMessage = new StringBuilder();
-
-		Artist artist = new Artist(name);
-		artist.setSortName(sortName);
-		artist.setMusicBrainzID(musicBrainzID);
-
-//		if (!StringUtils.isEmpty(discogsURL)) {
-//			String http = "http://";
-//			if (!discogsURL.startsWith(http)) {
-//				discogsURL = http.concat(discogsURL);
-//			}
+//package es.regueiro.collectionManager.controller;
 //
-//			try {
-//				artist.setDiscogsURL(new URL(discogsURL));
-//			} catch (MalformedURLException exc) {
-//				errorMessage.append("The entered discogs URL is invalid\n");
-//			}
-//		}
-
-		Set<ConstraintViolation<Artist>> constraintViolations = validator
-				.validate(artist);
-
-		if (!constraintViolations.isEmpty()) {
-			for (ConstraintViolation<Artist> c : constraintViolations) {
-				errorMessage.append(c.getMessage());
-				errorMessage.append("\n");
-			}
-		}
-
-		if (errorMessage.length() > 0) {
-			throw new IllegalArgumentException(errorMessage.toString());
-		} else {
-			return artist;
-		}
-	}
-}
+//import java.text.DateFormat;
+//import java.util.Date;
+//import java.util.Locale;
+//
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.stereotype.Controller;
+//import org.springframework.ui.Model;
+//import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RequestMethod;
+//
+//import es.regueiro.collectionManager.musicbrainz.MusicBrainzManager;
+//
+//
+//
+///**
+// * Handles requests for the application home page.
+// */
+//@Controller
+//public class ArtistController {
+//	
+//	private static final Logger logger = LoggerFactory.getLogger(ArtistController.class);
+//	
+//	@Autowired
+//	private MusicBrainzManager manager;
+////	
+//	/**
+//	 * Simply selects the home view to render by returning its name.
+//	 */
+//	@RequestMapping(value = "/", method = RequestMethod.GET)
+//	public String home() {
+//		logger.info("Requested index");
+//		return "index.html";
+//	}
+//	
+//	@RequestMapping(value = "/account/login", method = RequestMethod.GET)
+//	public String login() {
+//		logger.info("Requested login");
+//		return "login.html";
+//	}
+//	
+//	@RequestMapping(value = "/account/register", method = RequestMethod.GET)
+//	public String register() {
+//		logger.info("Requested register");
+//		return "register.html";
+//	}
+//	
+//	@RequestMapping(value = "/account/settings", method = RequestMethod.GET)
+//	@PreAuthorize("isAuthenticated()")
+//	public String settings() {
+//		logger.info("Requested settings");
+//		return "settings.html";
+//	}
+//	
+//	@RequestMapping(value = "/about", method = RequestMethod.GET)
+//	public String about() {
+//		logger.info("Requested about");
+//		return "about.html";
+//	}
+//	
+//	@RequestMapping(value = "/contact", method = RequestMethod.GET)
+//	public String contact() {
+//		logger.info("Requested contact");
+//		return "contact.html";
+//	}
+//	
+//	@RequestMapping(value = "/testAPI", method = RequestMethod.GET)
+//	@PreAuthorize("isAuthenticated()")
+//	public String testAPI(Locale locale, Model model) {
+//		logger.info("Welcome home! The client locale is {}.", locale);
+//		
+//		Date date = new Date();
+//		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+//		
+//		String formattedDate = dateFormat.format(date);
+//		
+//		model.addAttribute("serverTime", formattedDate );
+//		
+//		//manager.setAuthentication("burn", "e8d9eb1ad4422997f374336a4f440f0a58870431");
+////		manager.setAuthentication("springtest", "f151180b4819548af1170ccd9d97de52dc82e303");
+//		//model.addAttribute("testapi", manager.activityService().community());
+//		
+////		model.addAttribute("settings", manager.accountService().settings());
+//		
+//		model.addAttribute("test", manager.artistService().audioslave().getName());
+//
+//		return "home.html";
+//	}
+//	
+//	@RequestMapping(value = "/testAPIJSP", method = RequestMethod.GET)
+//	public String testJSP(Locale locale, Model model) {
+//		logger.info("Welcome home! The client locale is {}.", locale);
+//		
+//		Date date = new Date();
+//		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+//		
+//		String formattedDate = dateFormat.format(date);
+//		
+//		model.addAttribute("serverTime", formattedDate );
+//		
+//		//manager.setAuthentication("burn", "e8d9eb1ad4422997f374336a4f440f0a58870431");
+////				manager.setAuthentication("springtest", "f151180b4819548af1170ccd9d97de52dc82e303");
+//		//model.addAttribute("testapi", manager.activityService().community());
+////		model.addAttribute("test", manager.accountService().test());
+////		model.addAttribute("settings", manager.accountService().settings());
+////		
+//		return "home";
+//	}
+//	
+//	@RequestMapping(value = "/defaultTemplate", method = RequestMethod.GET)
+//	public String defaultTemplate() {
+//		logger.info("Requested default template");
+//			
+//		return "defaultTemplate.html";
+//	}
+//	
+//}

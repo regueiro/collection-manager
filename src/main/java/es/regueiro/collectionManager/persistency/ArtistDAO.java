@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import es.regueiro.collectionManager.model.Artist;
+import es.regueiro.collectionManager.model.artist.Artist;
 
 @Repository
 public interface ArtistDAO {

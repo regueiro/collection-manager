@@ -1,4 +1,4 @@
-package es.regueiro.collectionManager.model;
+package es.regueiro.collectionManager.model.release;
 
 // TODO: Auto-generated Javadoc
 /**

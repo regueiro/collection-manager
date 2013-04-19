@@ -1,9 +1,11 @@
-package es.regueiro.collectionManager.model;
+package es.regueiro.collectionManager.model.release;
 
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotBlank;
+
+import es.regueiro.collectionManager.model.artist.Artist;
 import es.regueiro.collectionManager.utils.validator.NullOrPattern;
 import es.regueiro.collectionManager.utils.validator.ValidationUtils;
 
@@ -11,7 +13,7 @@ import es.regueiro.collectionManager.utils.validator.ValidationUtils;
 /**
  * The Class Release.
  */
-public class Release {
+public class ReleaseGroup {
 
 	private String title;
 	private String type;
@@ -31,7 +33,7 @@ public class Release {
 	 * @param title
 	 *            the title
 	 */
-	public Release(Artist artist, String title) {
+	public ReleaseGroup(Artist artist, String title) {
 		super();
 		this.artist = artist;
 		this.title = title;

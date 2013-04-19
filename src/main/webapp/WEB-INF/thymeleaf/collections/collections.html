@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="fragments/template.html">
+<head>
+<title>Collection Manager</title>
+</head>
+<body>
+	<section layout:fragment="content">
+		<div class="row">
+
+			<h3>Collections</h3>
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Email</th>
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td >username</td>
+						<td >email</td>
+						<td>
+							<form method="post">
+								<input type="submit" class="btn btn-danger btn-mini"
+									value="Delete" />
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+</body>
+</html>
