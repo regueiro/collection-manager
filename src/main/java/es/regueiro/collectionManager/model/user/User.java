@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
@@ -35,19 +36,20 @@ public class User {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@Column(name = "username", nullable = false)
+	@Column(name = "username", nullable = false, unique = true)
 	@NotEmpty
 	private String username;
 	@Column(name = "password", nullable = false)
 	@NotEmpty
 	private String password;
-	@Column(name = "email", nullable = false)
+	@Column(name = "email", nullable = false, unique = true)
 	@NotEmpty
 	@Email
 	private String email;
 	@ElementCollection
 	@CollectionTable(name = "ROLES", joinColumns = @JoinColumn(name = "user_id"))
 	@Column(name="user_role", nullable = false)
+	//@OrderColumn // Hacky way to create a primary key for the collection table
 	@Type(type = "es.regueiro.collectionManager.util.EnumUserType", parameters = @Parameter(name = "type", value = "es.regueiro.collectionManager.model.user.Role"))
 	private List<Role> roleList = new ArrayList<Role>();
 	@Transient

@@ -2,6 +2,8 @@ package es.regueiro.collectionManager.service;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import es.regueiro.collectionManager.model.user.User;
 
 public interface UserService {
@@ -11,6 +13,7 @@ public interface UserService {
     void saveUser(User user);
     void deleteUser(User user);
     List<User> findUsers(String user);
+    @Transactional
     List<User> listAll();
     void registerUser(User user);
 }
