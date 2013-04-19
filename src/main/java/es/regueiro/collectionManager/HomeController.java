@@ -37,25 +37,6 @@ public class HomeController {
 		return "index.html";
 	}
 	
-	@RequestMapping(value = "/account/login", method = RequestMethod.GET)
-	public String login() {
-		logger.info("Requested login");
-		return "login.html";
-	}
-	
-	@RequestMapping(value = "/account/register", method = RequestMethod.GET)
-	public String register() {
-		logger.info("Requested register");
-		return "register.html";
-	}
-	
-	@RequestMapping(value = "/account/settings", method = RequestMethod.GET)
-	@PreAuthorize("isAuthenticated()")
-	public String settings() {
-		logger.info("Requested settings");
-		return "settings.html";
-	}
-	
 	@RequestMapping(value = "/about", method = RequestMethod.GET)
 	public String about() {
 		logger.info("Requested about");
