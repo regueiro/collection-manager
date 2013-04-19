@@ -74,11 +74,9 @@
 											placeholder="Password" />
 									</div>
 									<label class="checkbox string" for="remember_me"> <input
-											type="checkbox" id="remember_me"
-											name="_spring_security_remember_me" value="1" /> Remember me
-									</label>
-
-									<input class="btn btn-primary btn-block" type="submit"
+										type="checkbox" id="remember_me"
+										name="_spring_security_remember_me" value="1" /> Remember me
+									</label> <input class="btn btn-primary btn-block" type="submit"
 										name="commit" value="Sign In" />
 								</form>
 							</div></li>
@@ -90,6 +88,8 @@
 								th:inline="text"> [[${#authentication.name}]] </span><b
 								class="caret"></b></a>
 							<ul class="dropdown-menu">
+								<li sec:authorize="${hasRole('Admin')}"><a
+									th:href="@{/admin}">Administration</a></li>
 								<li><a th:href="@{/account/settings}">Settings</a></li>
 								<li class="divider"></li>
 								<li><a th:href="@{/j_spring_security_logout}">Logout</a></li>
