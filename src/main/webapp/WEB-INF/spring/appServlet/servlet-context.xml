@@ -23,17 +23,18 @@
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 
-<!-- 	<bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller"> -->
-<!-- 		<property name="packagesToScan"> -->
-<!-- 			<list> -->
-<!-- 				<value>org.musicbrainz.mm2</value> -->
-<!-- 			</list> -->
-<!-- 		</property> -->
-<!-- 		<property name="schema" value="classpath:org/springframework/oxm/schema.xsd"/> -->
-<!-- 	</bean> -->
+	<!-- <bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller"> -->
+	<!-- <property name="packagesToScan"> -->
+	<!-- <list> -->
+	<!-- <value>org.musicbrainz.mm2</value> -->
+	<!-- </list> -->
+	<!-- </property> -->
+	<!-- <property name="schema" value="classpath:org/springframework/oxm/schema.xsd"/> -->
+	<!-- </bean> -->
 
-	<security:global-method-security pre-post-annotations="enabled" />
-	
+	<security:global-method-security
+		pre-post-annotations="enabled" />
+
 	<bean id="templateResolver"
 		class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
 		<property name="prefix" value="/WEB-INF/thymeleaf/" />
@@ -48,7 +49,8 @@
 		<property name="additionalDialects">
 			<set>
 				<bean class="nz.net.ultraq.web.thymeleaf.LayoutDialect" />
-				<bean class="org.thymeleaf.extras.springsecurity3.dialect.SpringSecurityDialect"/>
+				<bean
+					class="org.thymeleaf.extras.springsecurity3.dialect.SpringSecurityDialect" />
 			</set>
 		</property>
 	</bean>
