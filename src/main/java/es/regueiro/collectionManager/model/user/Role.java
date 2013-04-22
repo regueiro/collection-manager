@@ -1,26 +1,31 @@
 package es.regueiro.collectionManager.model.user;
 
-import javax.persistence.Embeddable;
-
-// TODO: Auto-generated Javadoc
 /**
- * The Enum Role.
+ * The roles an user can perform.
  */
 public enum Role {
 
-	USER("User"), ADMIN("Admin");
+	USER("user", "User"),
+	ADMIN("admin", "Administrator");
 
+	/** The role name. */
 	private String name;
 
+	/** The display name for the role. */
+	private String displayName;
+
 	/**
-	 * Instantiates a new quality.
+	 * Creates a new role.
 	 * 
 	 * @param name
 	 *            the name
+	 * @param displayName
+	 *            the display name
 	 */
 
-	Role(String name) {
+	Role(String name, String displayName) {
 		this.name = name;
+		this.setDisplayName(displayName);
 	}
 
 	/**
@@ -33,14 +38,22 @@ public enum Role {
 	}
 
 	/**
-	 * Equals.
+	 * Gets the display name.
 	 * 
-	 * @param name
-	 *            the name
-	 * @return true, if successful
+	 * @return the display name
 	 */
-	public boolean equals(String name) {
-		return this.name.equals(name);
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	/**
+	 * Sets the display name.
+	 * 
+	 * @param displayName
+	 *            the new display name
+	 */
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
 	/*
@@ -54,7 +67,7 @@ public enum Role {
 	}
 
 	/**
-	 * Gets the.
+	 * Gets a role by name.
 	 * 
 	 * @param name
 	 *            the name
@@ -68,4 +81,5 @@ public enum Role {
 		}
 		return null;
 	}
+
 }

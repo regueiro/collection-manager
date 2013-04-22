@@ -1,3 +1,11 @@
+/* EnumUserType utility class
+ * 
+ * Created by raisercostin
+ * 
+ * http://stackoverflow.com/a/2689615
+ * http://stackoverflow.com/users/99248/raisercostin
+ */
+
 package es.regueiro.collectionManager.util;
 
 import java.io.Serializable;
@@ -15,7 +23,8 @@ import org.hibernate.usertype.UserType;
 public class EnumUserType implements UserType, ParameterizedType {
 
     private static final int[] SQL_TYPES = { Types.VARCHAR };
-    private Class clazz = null;
+    @SuppressWarnings("rawtypes")
+	private Class clazz = null;
 
     public EnumUserType() {
     }
@@ -34,10 +43,12 @@ public class EnumUserType implements UserType, ParameterizedType {
         return SQL_TYPES;
     }
 
-    public Class returnedClass() {
+    @SuppressWarnings("rawtypes")
+	public Class returnedClass() {
         return clazz;
     }
-    public Object nullSafeGet(ResultSet resultSet, String[] names,
+    @SuppressWarnings("unchecked")
+	public Object nullSafeGet(ResultSet resultSet, String[] names,
 			SessionImplementor sessionImplementator, Object owner) throws HibernateException,
 			SQLException {
         String name = resultSet.getString(names[0]);
@@ -48,7 +59,8 @@ public class EnumUserType implements UserType, ParameterizedType {
         return result;
     }
 
-    public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index,
+    @SuppressWarnings("rawtypes")
+	public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index,
 			SessionImplementor sessionImplementator) throws HibernateException,
             SQLException {
         if (null == value) {

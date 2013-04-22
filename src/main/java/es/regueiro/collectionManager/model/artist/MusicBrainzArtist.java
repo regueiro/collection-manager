@@ -1,3 +1,4 @@
+//TODO Comment
 package es.regueiro.collectionManager.model.artist;
 
 import es.regueiro.collectionManager.utils.validator.NullOrPattern;
